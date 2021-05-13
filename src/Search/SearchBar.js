@@ -16,10 +16,15 @@ class SearchBar extends React.Component {
     componentDidMount({ map, mapApi } = this.props) {
         this.searchBox = new mapApi.places.SearchBox(this.input);
         // searchBox에서 장소 선택 시, 이벤트 발생
-        this.searchBox.addListener('places_changed', this.onPlacesChanged);
+        // this.searchBox.addListener('places_changed', this.onPlacesChanged);
+        this.searchBox.addListener('places_changed', function () {
+            console.log(this);
+        });
 
         // seachBox 결과가 map화면에 보여지며 해당 위치로 viewport가 이동
-        this.searchBox.bindTo('bounds', map);
+        // this.searchBox.bindTo('bounds', map);
+        console.log(map.center.lat());
+        console.log(map.center.lng());
     }
     componentWillUnmount({ mapApi } = this.props) {
         mapApi.event.clearInstanceListeners(this.input);
